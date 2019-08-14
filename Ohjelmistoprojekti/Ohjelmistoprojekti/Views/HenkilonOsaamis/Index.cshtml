@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Ohjelmistoprojekti.Models.SimplyOsaamisrekisteriData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+
+$(document).ready(function () {
+
+$("#CategoryType").change(function () {
+    $("#SubCategory").empty();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("/henkilonosaamis/GetHenkiloOsaamiset")',
+        dataType: 'json',
+        data: { id: $("#CategoryType").val() },
+        success: function (subcategories) {
+            $.each(subcategories, function (i, subcategory) {
+                $("#SubCategory").append('<option value="'
+                    + subcategory.Value + '">' +
+                    subcategory.Text + '</option>');
+            });
+        },
+        error: function (ex) {
+            alert('Failed to retrieve Sub Categories : ' + ex);
+        }
+    });
+    return false;
+})
+});
+    </script>
+}
+
+
+
+<h2>Index</h2>
+
+@*@using (Html.BeginForm("Index", "HenkilonOsaamis", FormMethod.Get))
+{
+    <table cellspacing="2" cellpadding="2">
+        <tr>
+            <td>Category Type : </td>
+            <td>
+                @Html.DropDownList("CategoryType")
+            </td>
+        </tr>
+
+        <tr>
+            <td>Sub Category: </td>
+            <td>
+                @Html.DropDownList("SubCategory",
+                    new SelectList(string.Empty,
+                         "Value", "Text"),
+                    "Please select a Sub Category",
+                    new { style = "width:250px" })
+            </td>
+        </tr>
+    </table>
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Osaamistaso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sukunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kuvaus)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Osaamistaso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etunimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sukunimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kuvaus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.HenkilonOsaamisID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.HenkilonOsaamisID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.HenkilonOsaamisID })
+        </td>
+    </tr>
+    }
+
+</table>*@

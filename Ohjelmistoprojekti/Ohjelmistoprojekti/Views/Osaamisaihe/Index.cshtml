@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Ohjelmistoprojekti.Models.Osaamisaiheet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $(".näytäHenkiloOsaamisNappi").click(function () {
+                //alert("Nappia painettu!");
+                var henkiloId = $(this).data("henkiloid");
+                //var p1 = $(this).parent();
+                //alert(henkiloId);
+
+                $("#osaamiset_" + henkiloId).css("display", "table-row");
+
+                var url = "/osaamisaihe/getHenkiloOsaamiset/" + henkiloId;
+                //alert (url);
+                $.ajax(url).done(function (data) {
+                    //alert("Palvelimelta tuli vastaus.");
+
+                    var osaamisData = "";
+                    for (var i = 0; i < data.length; i++) {
+                        osaamisData += (i + 1) + ": "
+                            + "OsaamisaiheID: " + data[i].OsaamisaiheID+ " | "
+                            + "Nimi: " + data[i].Etunimi +" "+ data[i].Sukunimi + " | "
+                            + "Osaamistaso: " + data[i].Osaamistaso + " | " 
+                            + "Henkilönumero: " + data[i].HenkiloID + " | "
+                            + "Organisaatio: " + data[i].Organiaatio + " | "
+                            + "\r\n";
+                    }
+
+                    //alert(osaamisData);
+
+                    $("#osaamisText_" + henkiloId).html("<pre>" + osaamisData + "</pre>");
+                });
+            });
+        });
+    </script>
+}
+
+
+
+<h2>Osaamisaiheet</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+          
+            @Html.DisplayNameFor(model => model.Kuvaus)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="#"><span data-henkiloid="@Html.DisplayFor(modelItem => item.OsaamisaiheID)" class="glyphicon glyphicon-plus näytäHenkiloOsaamisNappi"></span></a>
+                @Html.DisplayFor(modelItem => item.Kuvaus)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OsaamisaiheID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OsaamisaiheID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OsaamisaiheID })
+            </td>
+        </tr>
+
+        //luodaan alinäkymän tiedot:
+        <tr style="display: none;" id="osaamiset_@Html.DisplayFor(modelItem => item.OsaamisaiheID)">
+            <td id="margin_@Html.DisplayFor(modelItem => item.OsaamisaiheID)">&nbsp;</td>
+            <td colspan="1" id="osaamisText_@Html.DisplayFor(modelItem => item.OsaamisaiheID)"><pre>Loading...</pre></td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,58 @@
+﻿@model Ohjelmistoprojekti.Models.Henkilot
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Henkilot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Etunimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etunimi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sukunimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sukunimi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TyoPuhelin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TyoPuhelin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TyoSahkoposti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TyoSahkoposti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organiaatio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organiaatio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HenkiloID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

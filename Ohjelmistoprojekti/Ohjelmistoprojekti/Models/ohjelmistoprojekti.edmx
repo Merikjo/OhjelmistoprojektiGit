@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ohjelmistodataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HenkilonOsaamiset">
+          <Key>
+            <PropertyRef Name="HenkilonOsaamisID" />
+          </Key>
+          <Property Name="HenkilonOsaamisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OsaamisaiheID" Type="int" />
+          <Property Name="HenkiloID" Type="int" />
+          <Property Name="Osaamistaso" Type="int" />
+        </EntityType>
+        <EntityType Name="Henkilot">
+          <Key>
+            <PropertyRef Name="HenkiloID" />
+          </Key>
+          <Property Name="HenkiloID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" />
+          <Property Name="TyoPuhelin" Type="nvarchar" MaxLength="50" />
+          <Property Name="TyoSahkoposti" Type="nvarchar" MaxLength="100" />
+          <Property Name="Organiaatio" Type="nvarchar" MaxLength="100" />
+          <Property Name="Henkilonumero" Type="int" />
+        </EntityType>
+        <EntityType Name="Osaamisaiheet">
+          <Key>
+            <PropertyRef Name="OsaamisaiheID" />
+          </Key>
+          <Property Name="OsaamisaiheID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kuvaus" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_HenkilonOsaamiset_Henkilot">
+          <End Role="Henkilot" Type="Self.Henkilot" Multiplicity="0..1" />
+          <End Role="HenkilonOsaamiset" Type="Self.HenkilonOsaamiset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilot">
+              <PropertyRef Name="HenkiloID" />
+            </Principal>
+            <Dependent Role="HenkilonOsaamiset">
+              <PropertyRef Name="HenkiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HenkilonOsaamiset_Osaamisaiheet">
+          <End Role="Osaamisaiheet" Type="Self.Osaamisaiheet" Multiplicity="0..1" />
+          <End Role="HenkilonOsaamiset" Type="Self.HenkilonOsaamiset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osaamisaiheet">
+              <PropertyRef Name="OsaamisaiheID" />
+            </Principal>
+            <Dependent Role="HenkilonOsaamiset">
+              <PropertyRef Name="OsaamisaiheID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ohjelmistodataModelStoreContainer">
+          <EntitySet Name="HenkilonOsaamiset" EntityType="Self.HenkilonOsaamiset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Osaamisaiheet" EntityType="Self.Osaamisaiheet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HenkilonOsaamiset_Henkilot" Association="Self.FK_HenkilonOsaamiset_Henkilot">
+            <End Role="Henkilot" EntitySet="Henkilot" />
+            <End Role="HenkilonOsaamiset" EntitySet="HenkilonOsaamiset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HenkilonOsaamiset_Osaamisaiheet" Association="Self.FK_HenkilonOsaamiset_Osaamisaiheet">
+            <End Role="Osaamisaiheet" EntitySet="Osaamisaiheet" />
+            <End Role="HenkilonOsaamiset" EntitySet="HenkilonOsaamiset" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ohjelmistodataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ohjelmistodataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HenkilonOsaamiset" EntityType="ohjelmistodataModel.HenkilonOsaamiset" />
+          <EntitySet Name="Henkilot" EntityType="ohjelmistodataModel.Henkilot" />
+          <EntitySet Name="Osaamisaiheet" EntityType="ohjelmistodataModel.Osaamisaiheet" />
+          <AssociationSet Name="FK_HenkilonOsaamiset_Henkilot" Association="ohjelmistodataModel.FK_HenkilonOsaamiset_Henkilot">
+            <End Role="Henkilot" EntitySet="Henkilot" />
+            <End Role="HenkilonOsaamiset" EntitySet="HenkilonOsaamiset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HenkilonOsaamiset_Osaamisaiheet" Association="ohjelmistodataModel.FK_HenkilonOsaamiset_Osaamisaiheet">
+            <End Role="Osaamisaiheet" EntitySet="Osaamisaiheet" />
+            <End Role="HenkilonOsaamiset" EntitySet="HenkilonOsaamiset" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="HenkilonOsaamiset">
+          <Key>
+            <PropertyRef Name="HenkilonOsaamisID" />
+          </Key>
+          <Property Name="HenkilonOsaamisID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OsaamisaiheID" Type="Int32" />
+          <Property Name="HenkiloID" Type="Int32" />
+          <Property Name="Osaamistaso" Type="Int32" />
+          <NavigationProperty Name="Henkilot" Relationship="ohjelmistodataModel.FK_HenkilonOsaamiset_Henkilot" FromRole="HenkilonOsaamiset" ToRole="Henkilot" />
+          <NavigationProperty Name="Osaamisaiheet" Relationship="ohjelmistodataModel.FK_HenkilonOsaamiset_Osaamisaiheet" FromRole="HenkilonOsaamiset" ToRole="Osaamisaiheet" />
+        </EntityType>
+        <EntityType Name="Henkilot">
+          <Key>
+            <PropertyRef Name="HenkiloID" />
+          </Key>
+          <Property Name="HenkiloID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TyoPuhelin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TyoSahkoposti" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Organiaatio" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Henkilonumero" Type="Int32" />
+          <NavigationProperty Name="HenkilonOsaamiset" Relationship="ohjelmistodataModel.FK_HenkilonOsaamiset_Henkilot" FromRole="Henkilot" ToRole="HenkilonOsaamiset" />
+        </EntityType>
+        <EntityType Name="Osaamisaiheet">
+          <Key>
+            <PropertyRef Name="OsaamisaiheID" />
+          </Key>
+          <Property Name="OsaamisaiheID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kuvaus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HenkilonOsaamiset" Relationship="ohjelmistodataModel.FK_HenkilonOsaamiset_Osaamisaiheet" FromRole="Osaamisaiheet" ToRole="HenkilonOsaamiset" />
+        </EntityType>
+        <Association Name="FK_HenkilonOsaamiset_Henkilot">
+          <End Type="ohjelmistodataModel.Henkilot" Role="Henkilot" Multiplicity="0..1" />
+          <End Type="ohjelmistodataModel.HenkilonOsaamiset" Role="HenkilonOsaamiset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilot">
+              <PropertyRef Name="HenkiloID" />
+            </Principal>
+            <Dependent Role="HenkilonOsaamiset">
+              <PropertyRef Name="HenkiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HenkilonOsaamiset_Osaamisaiheet">
+          <End Type="ohjelmistodataModel.Osaamisaiheet" Role="Osaamisaiheet" Multiplicity="0..1" />
+          <End Type="ohjelmistodataModel.HenkilonOsaamiset" Role="HenkilonOsaamiset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osaamisaiheet">
+              <PropertyRef Name="OsaamisaiheID" />
+            </Principal>
+            <Dependent Role="HenkilonOsaamiset">
+              <PropertyRef Name="OsaamisaiheID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ohjelmistodataModelStoreContainer" CdmEntityContainer="ohjelmistodataEntities">
+          <EntitySetMapping Name="HenkilonOsaamiset">
+            <EntityTypeMapping TypeName="ohjelmistodataModel.HenkilonOsaamiset">
+              <MappingFragment StoreEntitySet="HenkilonOsaamiset">
+                <ScalarProperty Name="Osaamistaso" ColumnName="Osaamistaso" />
+                <ScalarProperty Name="HenkiloID" ColumnName="HenkiloID" />
+                <ScalarProperty Name="OsaamisaiheID" ColumnName="OsaamisaiheID" />
+                <ScalarProperty Name="HenkilonOsaamisID" ColumnName="HenkilonOsaamisID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Henkilot">
+            <EntityTypeMapping TypeName="ohjelmistodataModel.Henkilot">
+              <MappingFragment StoreEntitySet="Henkilot">
+                <ScalarProperty Name="Henkilonumero" ColumnName="Henkilonumero" />
+                <ScalarProperty Name="Organiaatio" ColumnName="Organiaatio" />
+                <ScalarProperty Name="TyoSahkoposti" ColumnName="TyoSahkoposti" />
+                <ScalarProperty Name="TyoPuhelin" ColumnName="TyoPuhelin" />
+                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+                <ScalarProperty Name="HenkiloID" ColumnName="HenkiloID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Osaamisaiheet">
+            <EntityTypeMapping TypeName="ohjelmistodataModel.Osaamisaiheet">
+              <MappingFragment StoreEntitySet="Osaamisaiheet">
+                <ScalarProperty Name="Kuvaus" ColumnName="Kuvaus" />
+                <ScalarProperty Name="OsaamisaiheID" ColumnName="OsaamisaiheID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Ohjelmistoprojekti.Models.Henkilot>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <th>
+                    @Html.ActionLink("Create New", "Create")
+                </th>
+                <th>
+                    @Html.DropDownList("HenkiloID", null, htmlAttributes: new { @class = "form-control" })
+                <th>
+                <th><input type="submit" value="search" /></th>
+            </tr>
+        </table>
+    }
+</p>*@
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Etunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sukunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TyoPuhelin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TyoSahkoposti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Organiaatio)
+        </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etunimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sukunimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TyoPuhelin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TyoSahkoposti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Organiaatio)
+        </td>
+   
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.HenkiloID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.HenkiloID }) |
+            @Html.ActionLink("Skill", "Skill", new { id = item.HenkiloID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.HenkiloID })
+        </td>
+    </tr>
+    }
+
+</table>
